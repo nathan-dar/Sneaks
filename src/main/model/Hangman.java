@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Hangman {
 
-    public String[] wordBank = {"POTATO"};
+    public String[] wordBank = {"TESTING"};
     char[] wordSoFar;
     char[] hiddenWord;
     char[] availableLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
@@ -59,6 +59,16 @@ public class Hangman {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: asks a user to "guess a letter", then returns the guess as a character
+    public char guessALetter() {
+        System.out.println("Guess a Letter:");
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
+        char guess = input.charAt(0);
+        return guess;
+    }
+
     // EFFECTS: checks if word is complete (game is won)
     public boolean wordComplete() {
         return (charArrayToString(wordSoFar).equals(charArrayToString(hiddenWord)));
@@ -68,18 +78,13 @@ public class Hangman {
     // EFFECTS: runs the hangman game
     public void game() {
         Ascii ascii = new Ascii();
-
         randomWord(); // randomly selects word from wordBank
         underscoreWord(); // creates a "blank" (underscored) version of the word
         ascii.gameIntro();
-
         System.out.println(charArrayToString(wordSoFar));
 
         while (!(lives == 0)) {
-            System.out.println("Guess a Letter:");
-            Scanner scan = new Scanner(System.in);
-            String input = scan.nextLine();
-            char guess = input.charAt(0);
+            char guess = guessALetter();
 
             if (charInCharArray(guess, hiddenWord)) {
                 replaceUnderscores(guess);

@@ -4,6 +4,7 @@ public class Ascii {
 
     public Ascii() {
     }
+
     // EFFECTS: prints a introduction message
     public void gameIntro() {
         System.out.println("==================================");
