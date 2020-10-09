@@ -1,15 +1,15 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 
 public class Hangman {
 
-    public String[] wordBank = {"TESTING"};
+    public String[] wordBank = {"POTATO"};
     char[] wordSoFar;
     char[] hiddenWord;
+    char[] availableLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+            'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     public int lives = 5;
 
     public Hangman() {
@@ -36,8 +36,7 @@ public class Hangman {
     // MODIFIES: this
     // EFFECTS: converts character array to a string
     public String charArrayToString(char[] c) {
-        String str = String.valueOf(c);
-        return str;
+        return String.valueOf(c);
     }
 
     // EFFECTS: produce true if character is found in array
@@ -60,31 +59,21 @@ public class Hangman {
         }
     }
 
-    // EFFECTS: prints a greeting message
-    public void greetPlayer() {
-        System.out.println("==================================");
-        System.out.println("|            HANGMAN             |");
-        System.out.println("==================================");
+    // EFFECTS: checks if word is complete (game is won)
+    public boolean wordComplete() {
+        return (charArrayToString(wordSoFar).equals(charArrayToString(hiddenWord)));
     }
 
-    // EFFECTS: prints a game over message
-    public void gameOver() {
-        System.out.println("==================================");
-        System.out.println("|           GAME OVER            |");
-        System.out.println("==================================");
-    }
-
-    // EFFECTS: prints a congratulatory message
-    public void gameWin() {
-        System.out.println("==================================");
-        System.out.println("|       CONGRATS YOU WON!        |");
-        System.out.println("==================================");
-    }
-
+    // MODIFIES:  this
+    // EFFECTS: runs the hangman game
     public void game() {
-        randomWord();
-        underscoreWord();
-        greetPlayer();
+        Ascii ascii = new Ascii();
+
+        randomWord(); // randomly selects word from wordBank
+        underscoreWord(); // creates a "blank" (underscored) version of the word
+        ascii.gameIntro();
+
+        System.out.println(charArrayToString(wordSoFar));
 
         while (!(lives == 0)) {
             System.out.println("Guess a Letter:");
@@ -94,13 +83,19 @@ public class Hangman {
 
             if (charInCharArray(guess, hiddenWord)) {
                 replaceUnderscores(guess);
+                if (wordComplete()) {
+                    ascii.gameWin();
+                    break;
+                }
             } else {
                 lives--;
             }
             System.out.println("Remaining Lives: " + lives);
+            ascii.printHangmanAscii(lives);
             System.out.println(charArrayToString(wordSoFar));
         }
-        gameOver();
+        ascii.printHangmanAscii(lives);
+        ascii.gameOver();
     }
 }
 
