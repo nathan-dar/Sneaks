@@ -5,12 +5,14 @@ import java.util.Random;
 
 public class Hangman {
 
-    public String[] wordBank = {"TESTING"};
+    private static final int STARTING_LIVES = 6;
+
+    public int lives = 6;
+    public String[] wordBank = {"APPLE", "ORANGE", "BANANA", "PEAR", "GRAPE", "WATERMELON"};
     char[] wordSoFar;
     char[] hiddenWord;
     char[] availableLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
             'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    public int lives = 5;
 
     public Hangman() {
     }
@@ -66,12 +68,26 @@ public class Hangman {
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
         char guess = input.charAt(0);
-        return guess;
+        return Character.toUpperCase(guess);
     }
 
     // EFFECTS: checks if word is complete (game is won)
     public boolean wordComplete() {
         return (charArrayToString(wordSoFar).equals(charArrayToString(hiddenWord)));
+    }
+
+    // EFFECTS: asks the user if they would like play again
+    public void playAgain() {
+        System.out.println("Would you like to play again? [YES or NO]");
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
+        if (input.toUpperCase().equals("YES")) {
+            hiddenWord = null;
+            wordSoFar = null;
+            lives = STARTING_LIVES;
+            game();
+        }
+        System.exit(0);
     }
 
     // MODIFIES:  this
@@ -90,7 +106,7 @@ public class Hangman {
                 replaceUnderscores(guess);
                 if (wordComplete()) {
                     ascii.gameWin();
-                    break;
+                    playAgain();
                 }
             } else {
                 lives--;
@@ -99,8 +115,8 @@ public class Hangman {
             ascii.printHangmanAscii(lives);
             System.out.println(charArrayToString(wordSoFar));
         }
-        ascii.printHangmanAscii(lives);
         ascii.gameOver();
+        playAgain();
     }
 }
 

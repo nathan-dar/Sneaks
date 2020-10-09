@@ -28,7 +28,9 @@ public class Ascii {
 
     // EFFECTS: prints hangman Ascii art based on remaining lives
     public void printHangmanAscii(int lives) {
-        if (lives == 5) {
+        if (lives == 6) {
+            hangmanAscii6Lives();
+        } else if (lives == 5) {
             hangmanAscii5Lives();
         } else if (lives == 4) {
             hangmanAscii4Lives();
@@ -43,11 +45,22 @@ public class Ascii {
         }
     }
 
+    // EFFECTS: print hangman ascii with 6 lives left
+    public void hangmanAscii6Lives() {
+        System.out.println(" +----+    ");
+        System.out.println(" |    |    ");
+        System.out.println(" |         ");
+        System.out.println(" |         ");
+        System.out.println(" |         ");
+        System.out.println(" |         ");
+        System.out.println("===========");
+    }
+
     // EFFECTS: print hangman ascii with 5 lives left
     public void hangmanAscii5Lives() {
         System.out.println(" +----+    ");
         System.out.println(" |    |    ");
-        System.out.println(" |         ");
+        System.out.println(" |    O    ");
         System.out.println(" |         ");
         System.out.println(" |         ");
         System.out.println(" |         ");
@@ -70,7 +83,7 @@ public class Ascii {
         System.out.println(" +----+    ");
         System.out.println(" |    |    ");
         System.out.println(" |    0    ");
-        System.out.println(" |    |\\   ");
+        System.out.println(" |    |\\    ");
         System.out.println(" |         ");
         System.out.println(" |         ");
         System.out.println("===========");
