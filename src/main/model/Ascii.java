@@ -1,5 +1,6 @@
 package model;
 
+// produces ascii art
 public class Ascii {
 
     public Ascii() {
