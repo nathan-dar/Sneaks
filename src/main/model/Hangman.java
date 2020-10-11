@@ -1,14 +1,16 @@
 package model;
 
-import java.util.Scanner;
 import java.util.Random;
+
+import ui.Ascii;
+import ui.UserInput;
 
 public class Hangman {
 
     private static final int STARTING_LIVES = 6;
 
     public int lives = 6;
-    public String[] wordBank = {"APPLE", "ORANGE", "BANANA", "PEAR", "GRAPE", "WATERMELON"};
+    public String[] wordBank = {"I AM TESTING"};
     char[] wordSoFar;
     char[] hiddenWord;
     char[] availableLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
@@ -18,21 +20,25 @@ public class Hangman {
     }
 
     // MODIFIES: this
-    // EFFECTS: selects a random word from the word bank and converts it into a character array
-    public void randomWord() {
+    // EFFECTS: selects and returns a random word from the word bank
+    public String randomWord() {
         Random r = new Random();
         int randomInt = r.nextInt(wordBank.length);
         String str = wordBank[randomInt];
-        hiddenWord = str.toCharArray();
+        return str;
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a "blank" word according to the hiddenWord
-    public void underscoreWord() {
-        wordSoFar = new char[hiddenWord.length];
-        for (int i = 0; i < wordSoFar.length; i++) {
-            wordSoFar[i] = '_';
+    // EFFECTS: creates a "blank" char array from given char array
+    public char[] underscoreWord(char[] word) {
+        char[] blankWord = new char[word.length];
+        for (int i = 0; i < word.length; i++) {
+            blankWord[i] = '_'; // case where a letter appears
+            if (word[i] == ' ') {
+                blankWord[i] = ' '; // case where a space appears
+            }
         }
+        return blankWord;
     }
 
     // MODIFIES: this
@@ -61,62 +67,50 @@ public class Hangman {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: asks a user to "guess a letter", then returns the guess as a character
-    public char guessALetter() {
-        System.out.println("Guess a Letter:");
-        Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        char guess = input.charAt(0);
-        return Character.toUpperCase(guess);
-    }
-
     // EFFECTS: checks if word is complete (game is won)
     public boolean wordComplete() {
         return (charArrayToString(wordSoFar).equals(charArrayToString(hiddenWord)));
     }
 
-    // EFFECTS: asks the user if they would like play again
-    public void playAgain() {
-        System.out.println("Would you like to play again? [YES or NO]");
-        Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        if (input.toUpperCase().equals("YES")) {
-            hiddenWord = null;
-            wordSoFar = null;
-            lives = STARTING_LIVES;
-            game();
-        }
-        System.exit(0);
+    // MODIFIES: this
+    // EFFECTS: resets and sets up hangman game
+    public void setupGame() {
+        hiddenWord = null;
+        wordSoFar = null;
+        lives = STARTING_LIVES;
+        hiddenWord = randomWord().toCharArray();
+        wordSoFar = underscoreWord(hiddenWord);
     }
 
-    // MODIFIES:  this
+    // MODIFIES: this
     // EFFECTS: runs the hangman game
     public void game() {
         Ascii ascii = new Ascii();
-        randomWord(); // randomly selects word from wordBank
-        underscoreWord(); // creates a "blank" (underscored) version of the word
+        UserInput ui = new UserInput();
+        setupGame();
         ascii.gameIntro();
-        System.out.println(charArrayToString(wordSoFar));
+        ascii.printHangmanAscii(lives, charArrayToString(wordSoFar));
 
         while (!(lives == 0)) {
-            char guess = guessALetter();
+            char guess = ui.guessALetter();
 
             if (charInCharArray(guess, hiddenWord)) {
                 replaceUnderscores(guess);
                 if (wordComplete()) {
                     ascii.gameWin();
-                    playAgain();
+                    if (ui.playAgain()) {
+                        game();
+                    }
                 }
             } else {
                 lives--;
             }
-            System.out.println("Remaining Lives: " + lives);
-            ascii.printHangmanAscii(lives);
-            System.out.println(charArrayToString(wordSoFar));
+            ascii.printHangmanAscii(lives, charArrayToString(wordSoFar));
         }
         ascii.gameOver();
-        playAgain();
+        if (ui.playAgain()) {
+            game();
+        }
     }
 }
 

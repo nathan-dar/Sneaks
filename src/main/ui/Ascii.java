@@ -1,4 +1,4 @@
-package model;
+package ui;
 
 // produces ascii art
 public class Ascii {
@@ -9,7 +9,8 @@ public class Ascii {
     // EFFECTS: prints a introduction message
     public void gameIntro() {
         System.out.println("==================================");
-        System.out.println("|            HANGMAN             |");
+        System.out.println("|             HANGMAN             |");
+        System.out.println("|       MADE BY: NATHAN DAR       |");
         System.out.println("==================================");
     }
 
@@ -27,8 +28,10 @@ public class Ascii {
         System.out.println("==================================");
     }
 
-    // EFFECTS: prints hangman Ascii art based on remaining lives
-    public void printHangmanAscii(int lives) {
+    // EFFECTS: prints out given lives, hangman ascii art, and the given word
+    public void printHangmanAscii(int lives, String word) {
+        System.out.println("==================================");
+        System.out.println("Remaining Lives: " + lives);
         if (lives == 6) {
             hangmanAscii6Lives();
         } else if (lives == 5) {
@@ -44,6 +47,7 @@ public class Ascii {
         } else if (lives == 0) {
             hangmanAscii0Lives();
         }
+        System.out.println(word);
     }
 
     // EFFECTS: print hangman ascii with 6 lives left
