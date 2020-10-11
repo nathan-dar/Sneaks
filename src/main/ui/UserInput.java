@@ -10,15 +10,14 @@ public class UserInput {
     }
 
     // EFFECTS: return true if the player wants to play again, otherwise stop execution
-    public boolean playAgain() {
+    public void playAgain(Hangman h) {
         System.out.println("Would you like to play again? [YES or NO]");
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
         if (input.toUpperCase().equals("YES")) {
-            return true;
+            h.game();
         }
         System.exit(0);
-        return false;
     }
 
 

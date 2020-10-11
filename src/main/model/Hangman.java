@@ -8,13 +8,14 @@ import ui.UserInput;
 public class Hangman {
 
     private static final int STARTING_LIVES = 6;
+    private static final char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+            'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     public int lives = 6;
     public String[] wordBank = {"I AM TESTING"};
     char[] wordSoFar;
     char[] hiddenWord;
-    char[] availableLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-            'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    char[] availableLetters;
 
     public Hangman() {
     }
@@ -24,8 +25,7 @@ public class Hangman {
     public String randomWord() {
         Random r = new Random();
         int randomInt = r.nextInt(wordBank.length);
-        String str = wordBank[randomInt];
-        return str;
+        return wordBank[randomInt];
     }
 
     // MODIFIES: this
@@ -85,6 +85,7 @@ public class Hangman {
     // MODIFIES: this
     // EFFECTS: runs the hangman game
     public void game() {
+        Hangman h = new Hangman();
         Ascii ascii = new Ascii();
         UserInput ui = new UserInput();
         setupGame();
@@ -98,9 +99,7 @@ public class Hangman {
                 replaceUnderscores(guess);
                 if (wordComplete()) {
                     ascii.gameWin();
-                    if (ui.playAgain()) {
-                        game();
-                    }
+                    ui.playAgain(h);
                 }
             } else {
                 lives--;
@@ -108,9 +107,7 @@ public class Hangman {
             ascii.printHangmanAscii(lives, charArrayToString(wordSoFar));
         }
         ascii.gameOver();
-        if (ui.playAgain()) {
-            game();
-        }
+        ui.playAgain(h);
     }
 }
 
