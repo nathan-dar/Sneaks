@@ -2,13 +2,10 @@ package model;
 
 import java.util.Random;
 
-import ui.Ascii;
-import ui.UserInput;
-
 public class Hangman {
 
     private static final int STARTING_LIVES = 6;
-    private static final char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+    private static final char[] LETTERS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
             'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     public int lives = 6;
@@ -18,6 +15,27 @@ public class Hangman {
     char[] availableLetters;
 
     public Hangman() {
+    }
+
+    // EFFECTS: returns wordSoFar
+    public char[] getWordSoFar() {
+        return wordSoFar;
+    }
+
+    // EFFECTS: returns wordSoFar
+    public char[] getHiddenWord() {
+        return hiddenWord;
+    }
+
+    // EFFECTS: returns lives
+    public int getLives() {
+        return lives;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: reduces lives by 1
+    public void wrongGuess() {
+        lives--;
     }
 
     // MODIFIES: this
@@ -78,36 +96,9 @@ public class Hangman {
         hiddenWord = null;
         wordSoFar = null;
         lives = STARTING_LIVES;
+        availableLetters = LETTERS;
         hiddenWord = randomWord().toCharArray();
         wordSoFar = underscoreWord(hiddenWord);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: runs the hangman game
-    public void game() {
-        Hangman h = new Hangman();
-        Ascii ascii = new Ascii();
-        UserInput ui = new UserInput();
-        setupGame();
-        ascii.gameIntro();
-        ascii.printHangmanAscii(lives, charArrayToString(wordSoFar));
-
-        while (!(lives == 0)) {
-            char guess = ui.guessALetter();
-
-            if (charInCharArray(guess, hiddenWord)) {
-                replaceUnderscores(guess);
-                if (wordComplete()) {
-                    ascii.gameWin();
-                    ui.playAgain(h);
-                }
-            } else {
-                lives--;
-            }
-            ascii.printHangmanAscii(lives, charArrayToString(wordSoFar));
-        }
-        ascii.gameOver();
-        ui.playAgain(h);
     }
 }
 
