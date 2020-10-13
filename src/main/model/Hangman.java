@@ -32,6 +32,21 @@ public class Hangman {
         return lives;
     }
 
+    // EFFECTS: returns availableLetters
+    public char[] getAvailableLetters() {
+        return availableLetters;
+    }
+
+    //MODIFIES: this
+    // EFFECTS: given a guessed letter, remove it from the available letters
+    public void updateAvailableLetters(char c) {
+        for (int i = 0; i < availableLetters.length; i++) {
+            if (c == availableLetters[i]) {
+                availableLetters[i] = '*';
+            }
+        }
+    }
+
     // REQUIRES: lives > 0
     // MODIFIES: this
     // EFFECTS: reduces lives by 1
@@ -62,8 +77,8 @@ public class Hangman {
 
     // MODIFIES: this
     // EFFECTS: converts character array to a string
-    public String charArrayToString(char[] c) {
-        return String.valueOf(c);
+    public String charArrayToString(char[] ca) {
+        return String.valueOf(ca);
     }
 
     // EFFECTS: produce true if character is found in array
@@ -96,8 +111,8 @@ public class Hangman {
     public void setupGame() {
         hiddenWord = null;
         wordSoFar = null;
-        lives = STARTING_LIVES;
         availableLetters = LETTERS;
+        lives = STARTING_LIVES;
         hiddenWord = randomWord().toCharArray();
         wordSoFar = underscoreWord(hiddenWord);
     }
