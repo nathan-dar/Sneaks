@@ -11,23 +11,42 @@ public class Sneaker {
     public double retailValue;
     public double resellValue;
 
-    public Sneaker(String brand, String model, String colour, double size, double condition, double retail, double resell) {
+    public Sneaker(String brand, String model, String colour, double size, double cond, double retail, double resell) {
         this.brand = brand;
         this.model = model;
         this.colourway = colour;
         this.shoeSize = size;
-        this.condition = condition;
+        this.condition = cond;
         this.retailValue = retail;
         this.resellValue = resell;
     }
 
-    // EFFECTS: returns retailValue
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getColourway() {
+        return colourway;
+    }
+
+    public double getShoeSize() {
+        return shoeSize;
+    }
+
+    public double getCondition() {
+        return condition;
+    }
+
     public double getRetailValue() {
         return retailValue;
     }
 
-    // EFFECTS: returns resellValue
     public double getResellValue() {
         return resellValue;
     }
+
 }

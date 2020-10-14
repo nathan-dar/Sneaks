@@ -18,7 +18,6 @@ public class Collection {
         collection.add(s);
     }
 
-    // REQUIRES: i < collection.size() - 1
     // MODIFIES: this
     // EFFECTS: removes a sneaker from collection with given index
     public void removeSneaker(int i) {
@@ -41,5 +40,14 @@ public class Collection {
             total += s.getResellValue();
         }
         return total;
+    }
+
+    // EFFECTS: returns collection size
+    public int collectionSize() {
+        return collection.size();
+    }
+
+    public List<Sneaker> getCollection() {
+        return collection;
     }
 }
