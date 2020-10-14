@@ -50,4 +50,9 @@ public class Collection {
     public List<Sneaker> getCollection() {
         return collection;
     }
+
+    // REQUIRES: collection.size() > 0
+    public Sneaker getSneaker(int i) {
+        return collection.get(i);
+    }
 }

@@ -54,6 +54,7 @@ public class CollectionTest {
     public void addSneakerThenRemoveSneakerTest() {
         c.addSneaker(s1);
         assertEquals(1, c.collectionSize());
+        assertEquals(s1, c.getSneaker(0));
         c.removeSneaker(0);
         assertEquals(0, c.collectionSize());
         assertEquals(0, c.getCollection().size());

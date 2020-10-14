@@ -43,11 +43,23 @@ public class SneaksApp {
         if (input.equals("a")) {
             doAddSneaker();
         } else if (input.equals("r")) {
-            doRemoveSneaker();
-        } else if (input.equals("c")) {
-            doCollectionStats();
+            if (!collectionEmpty()) {
+                doRemoveSneaker();
+            } else {
+                System.out.println("Your collection is empty.");
+            }
+        } else if (input.equals("s")) {
+            if (!collectionEmpty()) {
+                doCollectionStats();
+            } else {
+                System.out.println("Your collection is empty.");
+            }
         } else if (input.equals("v")) {
-            doViewCollection();
+            if (!collectionEmpty()) {
+                doViewCollection();
+            } else {
+                System.out.println("Your collection is empty.");
+            }
         } else {
             System.out.println("Input is not recognized, try again.");
         }
@@ -58,7 +70,7 @@ public class SneaksApp {
         System.out.println("\no------------ MENU ------------o");
         System.out.println("|  a -> add a sneaker          |");
         System.out.println("|  r -> remove a sneaker       |");
-        System.out.println("|  c -> collection statistics  |");
+        System.out.println("|  s -> collection statistics  |");
         System.out.println("|  v -> view your collection   |");
         System.out.println("|  q -> quit                   |");
         System.out.println("o------------------------------o");
@@ -77,6 +89,11 @@ public class SneaksApp {
         System.out.println("============================");
         System.out.println("|   SNEAKS is closing...   |");
         System.out.println("============================");
+    }
+
+    // checks if the collection is empty, return true if empty, otherwise false
+    public boolean collectionEmpty() {
+        return (collection.collectionSize() == 0);
     }
 
     // MODIFIES: this
@@ -118,6 +135,7 @@ public class SneaksApp {
     // EFFECTS: removes a chosen sneaker from the collection
     public void doRemoveSneaker() {
         int i = 1;
+
         for (Sneaker s : collection.getCollection()) {
             System.out.println(i + ".) " + s.getBrand() + " " + s.getModel() + " " + s.getColourway());
             i++;
@@ -125,6 +143,8 @@ public class SneaksApp {
         System.out.println("Enter the number of the sneaker you want to remove:");
         int remove = scan.nextInt();
         collection.removeSneaker(remove - 1);
+        Sneaker sn = collection.getSneaker(remove - 1);
+        System.out.println(sn.getBrand() + " " + sn.getModel() + " " + sn.getColourway() + " has been removed.");
     }
 
     // EFFECTS: displays the collections statistics
