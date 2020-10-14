@@ -24,7 +24,7 @@ class HangmanTest {
 
     @Test
     public void randomWordTestWordInDomain() {
-    h.randomWord();
+
     }
 
     @Test

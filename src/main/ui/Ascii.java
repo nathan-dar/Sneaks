@@ -30,7 +30,7 @@ public class Ascii {
 
     // EFFECTS: prints out given lives, hangman ascii art, and the given word
     public void printHangmanAscii(int lives, String word) {
-        System.out.println("==================================");
+        System.out.println("\n==================================");
         System.out.println("Remaining Lives: " + lives);
         if (lives == 6) {
             hangmanAscii6Lives();

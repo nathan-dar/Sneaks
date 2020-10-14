@@ -13,5 +13,5 @@ games into a coding project
 My main tasks for **Phase  1** of the project:
 - As a user, I want to be able to guess a letter
 - As a user, I want to be able to see if and where my guessed letter appears in the word
-- As a user, I want to be able to see the letters I have already guessed
+- As a user, I want to be able to see the letters I have availlable to guess
 - As a user, I want to be able to see how many guesses I have remaining

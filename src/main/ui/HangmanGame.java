@@ -39,10 +39,10 @@ public class HangmanGame {
         Ascii ascii = new Ascii();
         h.setupGame();
         ascii.gameIntro();
-        ascii.printHangmanAscii(h.getLives(), h.charArrayToString(h.getWordSoFar()));
-        System.out.println(h.charArrayToString(h.getAvailableLetters()));
 
         while (!(h.getLives() == 0)) {
+            ascii.printHangmanAscii(h.getLives(), h.charArrayToString(h.getWordSoFar()));
+            System.out.println(h.charArrayToString(h.getAvailableLetters()));
             char guess = guessALetter();
             h.updateAvailableLetters(guess);
             if (h.charInCharArray(guess, h.getHiddenWord())) {
@@ -54,8 +54,6 @@ public class HangmanGame {
             } else {
                 h.wrongGuess();
             }
-            ascii.printHangmanAscii(h.getLives(), h.charArrayToString(h.getWordSoFar()));
-            System.out.println(h.charArrayToString(h.getAvailableLetters()));
         }
         ascii.gameOver();
         System.out.println("The word/phrase was: " + h.charArrayToString(h.getHiddenWord()));
