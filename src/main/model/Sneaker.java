@@ -1,6 +1,6 @@
 package model;
 
-// Represents a sneaker with, brand, model, size, condition, retail value and resell value
+// Represents a sneaker with, brand, model, colourway, size, condition, retail value and resell value
 public class Sneaker {
 
     public String brand;
