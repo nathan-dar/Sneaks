@@ -3,7 +3,7 @@
 ## An Overview
 **Sneaks** is an app designed to make keeping track of your sneakers easy and simple. The app will be able to keep track of 
 your collection of sneakers complete with each sneaker's Brand, Model, Colourway, Size, Condition, Retail Value, and 
-Resell Value. Currently there are four main features including: adding sneakers, removing sneakers, a breakdown of your
+Resell Value. Currently, there are four main features including: adding sneakers, removing sneakers, a breakdown of your
 collection statistics, and a viewing of the sneakers in your collection.
 
 **Why I Chose  This Project:**
