@@ -14,8 +14,8 @@ streetwear and computer science!
 
 ## User Stories
 My main tasks for **Phase  1** of the project:
-- As a user, I want to be able to add a sneaker from my collection
+- As a user, I want to be able to add a sneaker to my collection
 - As a user, I want to be able to remove a sneaker from my collection
-- As a user, I want to be able to view the sneakers in my collection
+- As a user, I want to be able to view the sneaker(s) in my collection
 - As a user, I want to be able to view my collection statistics (how many shoes in my collection, etc.)
 
