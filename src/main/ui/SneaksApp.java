@@ -142,8 +142,8 @@ public class SneaksApp {
         }
         System.out.println("Enter the number of the sneaker you want to remove:");
         int remove = scan.nextInt();
-        collection.removeSneaker(remove - 1);
         Sneaker sn = collection.getSneaker(remove - 1);
+        collection.removeSneaker(remove - 1);
         System.out.println(sn.getBrand() + " " + sn.getModel() + " " + sn.getColourway() + " has been removed.");
     }
 
@@ -164,6 +164,7 @@ public class SneaksApp {
             System.out.println("Retail Value: $" + s.getRetailValue());
             System.out.println("Resell Value: $" + s.getResellValue());
         }
+        System.out.println("o-----------------------------------------o");
     }
 
 }
