@@ -19,3 +19,6 @@ My main tasks for **Phase  1** of the project:
 - As a user, I want to be able to view the sneaker(s) in my collection
 - As a user, I want to be able to view my collection statistics (how many shoes in my collection, etc.)
 
+My main tasks for **Phase  2** of the project:
+- As a user, I want to be able to save my collection to file
+- As a user, I want to be able to load my collection from file
