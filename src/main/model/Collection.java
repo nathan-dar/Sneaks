@@ -7,7 +7,7 @@ import persistence.Writable;
 import java.util.List;
 import java.util.ArrayList;
 
-// toJson and sneakersToJson methods modelled from model.Thingy from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+// toJson and sneakersToJson methods modelled from model.WorkRoom from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a collection of sneakers
 public class Collection implements Writable {
 
