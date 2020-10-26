@@ -14,7 +14,7 @@ public class CollectionTest {
 
     @BeforeEach
     public void setup() {
-        c = new Collection();
+        c = new Collection("Test Collection");
         s1 = new Sneaker("A", "B", "C", 1, 2, 3, 4);
         s2 = new Sneaker("D", "E", "F", 5, 6, 7, 8);
     }

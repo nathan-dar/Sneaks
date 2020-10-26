@@ -2,15 +2,25 @@ package ui;
 
 import model.Collection;
 import model.Sneaker;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
-// NOTE: Used ca.ubc.cpsc210.bank.ui.TellerApp as a guideline for methods in this class
-// Sneaks application
+// modelled after ca.ubc.cpsc210.bank.ui.TellerApp
+// modelled after ui.WorkRoomApp from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+// Represents the sneaks application
 public class SneaksApp {
+
+    private static final String JSON_STORE = "./data/collection.json";
 
     public Scanner scan;
     public Collection collection;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: starts the Sneaks application
     public SneaksApp() {
@@ -21,7 +31,9 @@ public class SneaksApp {
     public void runSneaks() {
         boolean keepGoing = true;
         scan = new Scanner(System.in);
-        collection = new Collection();
+        collection = new Collection("User's Collection");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         drawIntro();
 
         while (keepGoing) {
@@ -42,24 +54,18 @@ public class SneaksApp {
     public void processInput(String input) {
         if (input.equals("a")) {
             doAddSneaker();
-        } else if (input.equals("r")) {
-            if (!collectionEmpty()) {
-                doRemoveSneaker();
-            } else {
-                System.out.println("Your collection is empty.");
-            }
+        } else if (input.equals("r") && !collectionEmpty()) {
+            doRemoveSneaker();
+        } else if (input.equals("c") && !collectionEmpty()) {
+            doCollectionStats();
+        } else if (input.equals("v") && !collectionEmpty()) {
+            doViewCollection();
         } else if (input.equals("s")) {
-            if (!collectionEmpty()) {
-                doCollectionStats();
-            } else {
-                System.out.println("Your collection is empty.");
-            }
-        } else if (input.equals("v")) {
-            if (!collectionEmpty()) {
-                doViewCollection();
-            } else {
-                System.out.println("Your collection is empty.");
-            }
+            doSaveCollection();
+        } else if (input.equals("l")) {
+            doLoadCollection();
+        } else if (collectionEmpty()) {
+            System.out.println("Your collection is empty.");
         } else {
             System.out.println("Input is not recognized, try again.");
         }
@@ -70,8 +76,10 @@ public class SneaksApp {
         System.out.println("\no------------ MENU ------------o");
         System.out.println("|  a -> add a sneaker          |");
         System.out.println("|  r -> remove a sneaker       |");
-        System.out.println("|  s -> collection statistics  |");
+        System.out.println("|  c -> collection statistics  |");
         System.out.println("|  v -> view your collection   |");
+        System.out.println("|  s -> save your collection   |");
+        System.out.println("|  l -> load your collection   |");
         System.out.println("|  q -> quit                   |");
         System.out.println("o------------------------------o");
     }
@@ -81,7 +89,6 @@ public class SneaksApp {
         System.out.println("============================");
         System.out.println("|          SNEAKS          |");
         System.out.println("============================");
-
     }
 
     // EFFECTS: displays outro message
@@ -160,11 +167,34 @@ public class SneaksApp {
             System.out.println("o-----------------------------------------o");
             System.out.println(s.getBrand() + " " + s.getModel() + " " + s.getColourway());
             System.out.println("        Size: " + s.getShoeSize());
-            System.out.println("   Condition: " + s.getCondition() + "/10");
+            System.out.println("   Condition: " + s.getCondition() + "/10.0");
             System.out.println("Retail Value: $" + s.getRetailValue());
             System.out.println("Resell Value: $" + s.getResellValue());
         }
         System.out.println("o-----------------------------------------o");
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void doSaveCollection() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(collection);
+            jsonWriter.close();
+            System.out.println("Saved " + collection.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void doLoadCollection() {
+        try {
+            collection = jsonReader.read();
+            System.out.println("Loaded " + collection.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 }

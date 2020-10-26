@@ -1,15 +1,22 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.List;
 import java.util.ArrayList;
 
+// toJson and sneakersToJson methods modelled from model.Thingy from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a collection of sneakers
-public class Collection {
+public class Collection implements Writable {
 
-    public List<Sneaker> collection;
+    private List<Sneaker> collection;
+    private String name;
 
-    public Collection() {
-        collection = new ArrayList<Sneaker>();
+    public Collection(String name) {
+        this.name = name;
+        collection = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -55,4 +62,29 @@ public class Collection {
     public Sneaker getSneaker(int i) {
         return collection.get(i);
     }
+
+    // EFFECTS: returns the collection's name
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("sneakers", sneakersToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray sneakersToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Sneaker s : collection) {
+            jsonArray.put(s.toJson());
+        }
+
+        return jsonArray;
+    }
+
 }
