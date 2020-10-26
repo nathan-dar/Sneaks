@@ -1,6 +1,5 @@
 package persistence;
 
-import model.Sneaker;
 import model.Collection;
 import org.junit.jupiter.api.Test;
 
