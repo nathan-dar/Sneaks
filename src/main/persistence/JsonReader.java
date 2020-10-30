@@ -21,7 +21,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads collection from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Collection read() throws IOException {
         String jsonData = readFile(source);
@@ -40,7 +40,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses collection from JSON object and returns it
     private Collection parseCollection(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Collection c = new Collection(name);
@@ -49,7 +49,7 @@ public class JsonReader {
     }
 
     // MODIFIES: c
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // EFFECTS: parses sneakers from JSON object and adds them to collection
     private void addSneakers(Collection c, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("sneakers");
         for (Object json : jsonArray) {

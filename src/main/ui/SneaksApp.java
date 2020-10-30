@@ -126,6 +126,7 @@ public class SneaksApp {
         System.out.println(s.getBrand() + " " + s.getModel() + " " + s.getColourway() + " has been added.");
     }
 
+    // REQUIRES: user input must be of string type
     // EFFECTS: gets a string input from user, returns string
     public String askForString() {
         Scanner strScan = new Scanner(System.in);
@@ -138,6 +139,7 @@ public class SneaksApp {
         return scan.nextDouble();
     }
 
+    // REQUIRES: user's input must be in index of the collection size
     // MODIFIES: this
     // EFFECTS: removes a chosen sneaker from the collection
     public void doRemoveSneaker() {
@@ -174,7 +176,7 @@ public class SneaksApp {
         System.out.println("o-----------------------------------------o");
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the collection to file
     private void doSaveCollection() {
         try {
             jsonWriter.open();
@@ -187,7 +189,7 @@ public class SneaksApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads collection from file
     private void doLoadCollection() {
         try {
             collection = jsonReader.read();

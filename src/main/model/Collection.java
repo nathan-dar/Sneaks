@@ -76,7 +76,7 @@ public class Collection implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns things in this collection as a JSON array
     private JSONArray sneakersToJson() {
         JSONArray jsonArray = new JSONArray();
 

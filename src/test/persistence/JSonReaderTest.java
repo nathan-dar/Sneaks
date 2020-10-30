@@ -9,8 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 // modelled after persistence.JsonReaderTest from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-class JsonReaderTest extends JsonTest {
-
+public class JSonReaderTest extends JsonTest {
     @Test
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
