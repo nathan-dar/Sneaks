@@ -57,18 +57,12 @@ public class GUI {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
-        int loadOnStart = startupPopup();
-
         initializeSneakerInputs();
         initializeButtonRemove();
         initializeButtonAdd();
         initializeButtonSave();
         initializeButtonLoad();
         initializeTable();
-
-        if (loadOnStart == 0) {
-            loadCollection();
-        }
 
         frame.setLayout(null);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -83,7 +77,6 @@ public class GUI {
     // EFFECTS: initializes JTable, DefaultTableModel, and JScrollPane
     private void initializeTable() {
         table = new JTable();
-
         tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(COLUMNS);
         table.setModel(tableModel);
@@ -275,15 +268,6 @@ public class GUI {
         conditionChoice.setSelectedIndex(0);
         retail.setText("XXX.XX");
         resell.setText("XXX.XX");
-    }
-
-    // EFFECTS: displays an startup message, return 0 if user selects "Yes", return 1 if user selects "No"
-    private int startupPopup() {
-        return JOptionPane.showConfirmDialog(
-                frame,
-                "Would you like to load the collection that is on file?",
-                "Sneaks - Welcome!",
-                JOptionPane.YES_NO_OPTION);
     }
 
 }
