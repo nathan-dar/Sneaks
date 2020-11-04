@@ -123,14 +123,8 @@ public class GUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                // i = the index of the selected row
-                int i = table.getSelectedRow();
-                if (i >= 0) {
-                    // remove a row from JTable
-                    tableModel.removeRow(i);
-                } else {
-                    System.out.println("Delete Error");
+                if (table.getSelectedRow() >= 0) {
+                    tableModel.removeRow(table.getSelectedRow());
                 }
             }
         });
@@ -176,7 +170,7 @@ public class GUI {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes remove button
+    // EFFECTS: initializes save button
     private void initializeButtonSave() {
         buttonSave = new JButton("Save");
         buttonSave.setBounds(500, 330, 100, 30);
@@ -186,15 +180,21 @@ public class GUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    jsonWriter.open();
-                    jsonWriter.write(collection);
-                    jsonWriter.close();
-                } catch (FileNotFoundException exception) {
-                    System.out.println("Unable to write to file: " + JSON_STORE);
-                }
+                saveCollection();
             }
         });
+    }
+
+    // MODIFIES: this
+    // EFFECTS: saves collection to file
+    private void saveCollection() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(collection);
+            jsonWriter.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
