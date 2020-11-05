@@ -5,6 +5,7 @@ import model.Sneaker;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -19,12 +20,12 @@ public class GUI {
 
     private static final String JSON_STORE = "./data/collection.json";
     private static final int FRAME_WIDTH = 800;
-    private static final int FRAME_HEIGHT = 400;
+    private static final int FRAME_HEIGHT = 600;
     private static final String[] COLUMNS =
             {"Brand", "Model", "ColourWay", "Size", "Condition", "Retail Value", "Resell Value"};
     private static final String[] BRAND_OPTIONS =
             {"--BRAND--", "ADIDAS", "ASICS", "CONVERSE", "DESIGNER", "FILA", "JORDAN", "NEW BALANCE", "NIKE", "REEBOK",
-                    "SKETCHERS", "UNDER ARMOUR", "VANS"};
+                    "SKECHERS", "UNDER ARMOUR", "VANS"};
     private static final String[] SIZE_OPTIONS =
             {"--SIZE--", "5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12",
                     "12.5", "13"};
@@ -77,9 +78,17 @@ public class GUI {
     // EFFECTS: initializes JTable, DefaultTableModel, and JScrollPane
     private void initializeTable() {
         table = new JTable();
-        tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel() {
+            //  Returning the Class of each column will allow different
+            //  renderers to be used based on Class
+            @Override
+            public Class getColumnClass(int column) {
+                return getValueAt(0, column).getClass();
+            }
+        };
         tableModel.setColumnIdentifiers(COLUMNS);
         table.setModel(tableModel);
+        table.setRowHeight(100);
 
         JScrollPane pane = new JScrollPane(table);
         pane.setBounds(20, 20, FRAME_WIDTH - 40, 200);
@@ -113,6 +122,23 @@ public class GUI {
         frame.add(retail);
         frame.add(resell);
     }
+
+    // MODIFIES: this
+    // EFFECTS: initialize JLabels
+    private void initializeButton() {
+        JLabel brandText = new JLabel("Brand:");
+        JLabel modelText = new JLabel("Model:");
+        JLabel colourwayText = new JLabel("Colourway:");
+        JLabel sizeText = new JLabel("Size:");
+        JLabel retailText = new JLabel("Retail Value:");
+        JLabel resellText = new JLabel("Resell Value:");
+
+        frame.add(brandText);
+        frame.add(modelText);
+        frame.add(colourwayText);
+
+    }
+
 
     // MODIFIES: this
     // EFFECTS: initializes remove button
@@ -152,6 +178,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 addSneakerFromFields();
                 clearTextFields();
+
             }
         });
     }
@@ -159,8 +186,11 @@ public class GUI {
     // MODIFIES: this
     // EFFECTS: gets text from fields and add it to the collection
     private void addSneakerFromFields() {
+        Icon brandIcon = new ImageIcon("/Users/nathand/Desktop/CPSC 210/project_q8w2b/data/brandPhotos/"
+                + brandChoice.getSelectedItem() + ".jpg");
+
         Object[] row = new Object[7];
-        row[0] = brandChoice.getSelectedItem();
+        row[0] = brandIcon;
         row[1] = model.getText().toUpperCase();
         row[2] = colour.getText().toUpperCase();
         row[3] = sizeChoice.getSelectedItem();
@@ -174,13 +204,10 @@ public class GUI {
         Double c = parseDouble(row[4].toString());
         Double ret = parseDouble(retail.getText());
         Double res = parseDouble(resell.getText());
-        Sneaker s = new Sneaker(b, m, col, sz, c, ret, res);
-        collection.addSneaker(s);
+        collection.addSneaker(new Sneaker(b, m, col, sz, c, ret, res));
         tableModel.addRow(row);
         JOptionPane.showMessageDialog(frame,
-                s.getBrand() + " " + s.getModel() + " " + s.getColourway() + " has been added.",
-                "Sneaks - Sneaker Added",
-                JOptionPane.PLAIN_MESSAGE);
+                b + " " + m + " " + col + " has been added.", "Sneaks - Sneaker Added", JOptionPane.PLAIN_MESSAGE);
     }
 
     // MODIFIES: this
