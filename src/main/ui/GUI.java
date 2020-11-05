@@ -11,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import static java.lang.Double.parseDouble;
 
@@ -19,18 +21,18 @@ import static java.lang.Double.parseDouble;
 public class GUI {
 
     private static final String JSON_STORE = "./data/collection.json";
-    private static final int FRAME_WIDTH = 800;
+    private static final int FRAME_WIDTH = 1000;
     private static final int FRAME_HEIGHT = 600;
     private static final String[] COLUMNS =
             {"Brand", "Model", "ColourWay", "Size", "Condition", "Retail Value", "Resell Value"};
     private static final String[] BRAND_OPTIONS =
-            {"--BRAND--", "ADIDAS", "ASICS", "CONVERSE", "DESIGNER", "FILA", "JORDAN", "NEW BALANCE", "NIKE", "REEBOK",
+            {"---", "ADIDAS", "ASICS", "CONVERSE", "DESIGNER", "FILA", "JORDAN", "NEW BALANCE", "NIKE", "REEBOK",
                     "SKECHERS", "UNDER ARMOUR", "VANS"};
     private static final String[] SIZE_OPTIONS =
-            {"--SIZE--", "5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12",
+            {"---", "5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12",
                     "12.5", "13"};
     private static final String[] CONDITION_OPTIONS =
-            {"--CONDITION--", "0", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7",
+            {"---", "0", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7",
                     "7.5", "8", "8.5", "9", "9.5", "10"};
 
     private JFrame frame;
@@ -59,6 +61,7 @@ public class GUI {
         jsonReader = new JsonReader(JSON_STORE);
 
         initializeSneakerInputs();
+        initializeJLabels();
         initializeButtonRemove();
         initializeButtonAdd();
         initializeButtonSave();
@@ -79,8 +82,6 @@ public class GUI {
     private void initializeTable() {
         table = new JTable();
         tableModel = new DefaultTableModel() {
-            //  Returning the Class of each column will allow different
-            //  renderers to be used based on Class
             @Override
             public Class getColumnClass(int column) {
                 return getValueAt(0, column).getClass();
@@ -89,10 +90,34 @@ public class GUI {
         tableModel.setColumnIdentifiers(COLUMNS);
         table.setModel(tableModel);
         table.setRowHeight(100);
+        customizeTable();
 
         JScrollPane pane = new JScrollPane(table);
-        pane.setBounds(20, 20, FRAME_WIDTH - 40, 200);
+        pane.setBounds(275, 25, 700, 525);
         frame.add(pane);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: customizes the table
+    private void customizeTable() {
+        table.setRowHeight(75);
+
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setFont(new Font("", Font.PLAIN, 13));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tableHeader.setDefaultRenderer(centerRenderer);
+        table.setDefaultRenderer(String.class, centerRenderer);
+        table.setDefaultRenderer(Double.class, centerRenderer);
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(150);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(75);
+        table.getColumnModel().getColumn(3).setPreferredWidth(75);
+        table.getColumnModel().getColumn(4).setPreferredWidth(125);
+        table.getColumnModel().getColumn(6).setPreferredWidth(125);
+
     }
 
     // MODIFIES: this
@@ -106,13 +131,13 @@ public class GUI {
         retail = new JTextField();
         resell = new JTextField();
 
-        brandChoice.setBounds(20, 220, 100, 30);
-        model.setBounds(130, 220, 100, 30);
-        colour.setBounds(240, 220, 100, 30);
-        sizeChoice.setBounds(350, 220, 100, 30);
-        conditionChoice.setBounds(460, 220, 100, 30);
-        retail.setBounds(570, 220, 100, 30);
-        resell.setBounds(680, 220, 100, 30);
+        brandChoice.setBounds(50, 50, 150, 30);
+        model.setBounds(50, 100, 150, 30);
+        colour.setBounds(50, 150, 150, 30);
+        sizeChoice.setBounds(50, 200, 150, 30);
+        conditionChoice.setBounds(50, 250, 150, 30);
+        retail.setBounds(50, 300, 150, 30);
+        resell.setBounds(50, 350, 150, 30);
 
         frame.add(brandChoice);
         frame.add(model);
@@ -125,26 +150,55 @@ public class GUI {
 
     // MODIFIES: this
     // EFFECTS: initialize JLabels
-    private void initializeButton() {
+    private void initializeJLabels() {
         JLabel brandText = new JLabel("Brand:");
         JLabel modelText = new JLabel("Model:");
         JLabel colourwayText = new JLabel("Colourway:");
         JLabel sizeText = new JLabel("Size:");
+        JLabel conditionText = new JLabel("Condition:");
         JLabel retailText = new JLabel("Retail Value:");
         JLabel resellText = new JLabel("Resell Value:");
+
+        brandText.setBounds(55, 30, 150, 30);
+        modelText.setBounds(55, 80, 150, 30);
+        colourwayText.setBounds(55, 130, 150, 30);
+        sizeText.setBounds(55, 180, 150, 30);
+        conditionText.setBounds(55, 230, 150, 30);
+        retailText.setBounds(55, 280, 150, 30);
+        resellText.setBounds(55, 330, 150, 30);
 
         frame.add(brandText);
         frame.add(modelText);
         frame.add(colourwayText);
-
+        frame.add(sizeText);
+        frame.add(conditionText);
+        frame.add(retailText);
+        frame.add(resellText);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes add button
+    private void initializeButtonAdd() {
+        JButton buttonAdd = new JButton("Add");
+        buttonAdd.setBounds(50, 390, 150, 30);
+        frame.add(buttonAdd);
+
+        buttonAdd.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSneakerFromFields();
+                clearInputFields();
+
+            }
+        });
+    }
 
     // MODIFIES: this
     // EFFECTS: initializes remove button
     private void initializeButtonRemove() {
         JButton buttonRemove = new JButton("Remove");
-        buttonRemove.setBounds(500, 300, 100, 30);
+        buttonRemove.setBounds(50, 420, 150, 30);
         frame.add(buttonRemove);
 
         buttonRemove.addActionListener(new ActionListener() {
@@ -166,55 +220,10 @@ public class GUI {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes add button
-    private void initializeButtonAdd() {
-        JButton buttonAdd = new JButton("Add");
-        buttonAdd.setBounds(200, 300, 100, 30);
-        frame.add(buttonAdd);
-
-        buttonAdd.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addSneakerFromFields();
-                clearTextFields();
-
-            }
-        });
-    }
-
-    // MODIFIES: this
-    // EFFECTS: gets text from fields and add it to the collection
-    private void addSneakerFromFields() {
-        Icon brandIcon = new ImageIcon("/Users/nathand/Desktop/CPSC 210/project_q8w2b/data/brandPhotos/"
-                + brandChoice.getSelectedItem() + ".jpg");
-
-        Object[] row = new Object[7];
-        row[0] = brandIcon;
-        row[1] = model.getText().toUpperCase();
-        row[2] = colour.getText().toUpperCase();
-        row[3] = sizeChoice.getSelectedItem();
-        row[4] = conditionChoice.getSelectedItem();
-        row[5] = retail.getText();
-        row[6] = resell.getText();
-        String b = row[0].toString();
-        String m = model.getText().toUpperCase();
-        String col = colour.getText().toUpperCase();
-        Double sz = parseDouble(row[3].toString());
-        Double c = parseDouble(row[4].toString());
-        Double ret = parseDouble(retail.getText());
-        Double res = parseDouble(resell.getText());
-        collection.addSneaker(new Sneaker(b, m, col, sz, c, ret, res));
-        tableModel.addRow(row);
-        JOptionPane.showMessageDialog(frame,
-                b + " " + m + " " + col + " has been added.", "Sneaks - Sneaker Added", JOptionPane.PLAIN_MESSAGE);
-    }
-
-    // MODIFIES: this
     // EFFECTS: initializes save button
     private void initializeButtonSave() {
         JButton buttonSave = new JButton("Save");
-        buttonSave.setBounds(500, 330, 100, 30);
+        buttonSave.setBounds(50, 450, 150, 30);
         frame.add(buttonSave);
 
         buttonSave.addActionListener(new ActionListener() {
@@ -231,22 +240,10 @@ public class GUI {
     }
 
     // MODIFIES: this
-    // EFFECTS: saves collection to file
-    private void saveCollection() {
-        try {
-            jsonWriter.open();
-            jsonWriter.write(collection);
-            jsonWriter.close();
-        } catch (FileNotFoundException exception) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        }
-    }
-
-    // MODIFIES: this
     // EFFECTS: initializes add button
     private void initializeButtonLoad() {
         JButton buttonLoad = new JButton("Load");
-        buttonLoad.setBounds(200, 330, 100, 30);
+        buttonLoad.setBounds(50, 480, 150, 30);
         frame.add(buttonLoad);
 
         buttonLoad.addActionListener(new ActionListener() {
@@ -263,15 +260,58 @@ public class GUI {
     }
 
     // MODIFIES: this
+    // EFFECTS: gets text from fields and add it to the collection
+    private void addSneakerFromFields() {
+        Icon brandIcon = new ImageIcon("./data/brandPhotos/" + brandChoice.getSelectedItem() + ".jpg");
+
+        Object[] row = new Object[7];
+        row[0] = brandIcon;
+        row[1] = model.getText().toUpperCase();
+        row[2] = colour.getText().toUpperCase();
+        row[3] = sizeChoice.getSelectedItem();
+        row[4] = conditionChoice.getSelectedItem();
+        row[5] = retail.getText();
+        row[6] = resell.getText();
+        Sneaker sneakerToAdd = new Sneaker(
+                brandChoice.getSelectedItem().toString(),
+                row[1].toString(),
+                row[2].toString(),
+                parseDouble(row[3].toString()),
+                parseDouble(row[4].toString()),
+                parseDouble(row[5].toString()),
+                parseDouble(row[6].toString()));
+        collection.addSneaker(sneakerToAdd);
+        tableModel.addRow(row);
+        JOptionPane.showMessageDialog(frame,
+                brandChoice.getSelectedItem() + " " + row[1] + " " + row[2] + " has been added.",
+                "Sneaks - Sneaker Added",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: saves collection to file
+    private void saveCollection() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(collection);
+            jsonWriter.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
     // EFFECTS: loads collection from file
     private void loadCollection() {
         try {
             collection = jsonReader.read();
             tableModel.setRowCount(0);
             for (int i = 0; i < collection.collectionSize(); i++) {
-                Object[] row = new Object[7];
                 Sneaker s = collection.getSneaker(i);
-                row[0] = s.getBrand();
+                Icon brandIcon = new ImageIcon("./data/brandPhotos/"
+                        + s.getBrand() + ".jpg");
+                Object[] row = new Object[7];
+                row[0] = brandIcon;
                 row[1] = s.getModel();
                 row[2] = s.getColourway();
                 row[3] = s.getShoeSize();
@@ -287,14 +327,14 @@ public class GUI {
 
     // MODIFIES: this
     // EFFECTS: clears text field boxes
-    private void clearTextFields() {
+    private void clearInputFields() {
         brandChoice.setSelectedIndex(0);
-        model.setText("--MODEL--");
-        colour.setText("--COLOURWAY--");
+        model.setText("");
+        colour.setText("");
         sizeChoice.setSelectedIndex(0);
         conditionChoice.setSelectedIndex(0);
-        retail.setText("XXX.XX");
-        resell.setText("XXX.XX");
+        retail.setText("");
+        resell.setText("");
     }
 
 }
