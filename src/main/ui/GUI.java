@@ -131,13 +131,13 @@ public class GUI {
         retail = new JTextField();
         resell = new JTextField();
 
-        brandChoice.setBounds(50, 50, 150, 30);
-        model.setBounds(50, 100, 150, 30);
-        colour.setBounds(50, 150, 150, 30);
-        sizeChoice.setBounds(50, 200, 150, 30);
-        conditionChoice.setBounds(50, 250, 150, 30);
-        retail.setBounds(50, 300, 150, 30);
-        resell.setBounds(50, 350, 150, 30);
+        brandChoice.setBounds(50, 50, 175, 30);
+        model.setBounds(50, 100, 175, 30);
+        colour.setBounds(50, 150, 175, 30);
+        sizeChoice.setBounds(50, 200, 175, 30);
+        conditionChoice.setBounds(50, 250, 175, 30);
+        retail.setBounds(50, 300, 175, 30);
+        resell.setBounds(50, 350, 175, 30);
 
         frame.add(brandChoice);
         frame.add(model);
@@ -180,7 +180,7 @@ public class GUI {
     // EFFECTS: initializes add button
     private void initializeButtonAdd() {
         JButton buttonAdd = new JButton("Add");
-        buttonAdd.setBounds(50, 390, 150, 30);
+        buttonAdd.setBounds(25, 400, 100, 30);
         frame.add(buttonAdd);
 
         buttonAdd.addActionListener(new ActionListener() {
@@ -198,7 +198,7 @@ public class GUI {
     // EFFECTS: initializes remove button
     private void initializeButtonRemove() {
         JButton buttonRemove = new JButton("Remove");
-        buttonRemove.setBounds(50, 420, 150, 30);
+        buttonRemove.setBounds(150, 400, 100, 30);
         frame.add(buttonRemove);
 
         buttonRemove.addActionListener(new ActionListener() {
@@ -223,7 +223,7 @@ public class GUI {
     // EFFECTS: initializes save button
     private void initializeButtonSave() {
         JButton buttonSave = new JButton("Save");
-        buttonSave.setBounds(50, 450, 150, 30);
+        buttonSave.setBounds(25, 450, 100, 30);
         frame.add(buttonSave);
 
         buttonSave.addActionListener(new ActionListener() {
@@ -243,7 +243,7 @@ public class GUI {
     // EFFECTS: initializes add button
     private void initializeButtonLoad() {
         JButton buttonLoad = new JButton("Load");
-        buttonLoad.setBounds(50, 480, 150, 30);
+        buttonLoad.setBounds(150, 450, 100, 30);
         frame.add(buttonLoad);
 
         buttonLoad.addActionListener(new ActionListener() {
