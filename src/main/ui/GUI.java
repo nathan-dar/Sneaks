@@ -66,11 +66,13 @@ public class GUI {
         initializeButtonAdd();
         initializeButtonSave();
         initializeButtonLoad();
+        initializeButtonStats();
         initializeTable();
 
         frame.setLayout(null);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setTitle("Sneaks");
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -85,6 +87,11 @@ public class GUI {
             @Override
             public Class getColumnClass(int column) {
                 return getValueAt(0, column).getClass();
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
         tableModel.setColumnIdentifiers(COLUMNS);
@@ -254,6 +261,31 @@ public class GUI {
                 JOptionPane.showMessageDialog(frame,
                         "The collection has been loaded.",
                         "Sneaks - Collection Loaded",
+                        JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes statistics button
+    private void initializeButtonStats() {
+        JButton buttonStats = new JButton("Statistics");
+        buttonStats.setBounds(150, 500, 100, 30);
+        frame.add(buttonStats);
+
+        buttonStats.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadCollection();
+                System.out.println("Total sneakers in collection: " + collection.collectionSize());
+                System.out.println("Total Retail Value: $" + collection.totalRetailValue());
+                System.out.println("Total Resell Value: $" + collection.totalResellValue());
+                JOptionPane.showMessageDialog(frame,
+                        "Total sneakers in collection: " + collection.collectionSize()
+                                + "\nTotal Retail Value: $" + collection.totalRetailValue()
+                                + "\nTotal Resell Value: $" + collection.totalResellValue(),
+                        "Sneaks - Collection Statistics",
                         JOptionPane.PLAIN_MESSAGE);
             }
         });
