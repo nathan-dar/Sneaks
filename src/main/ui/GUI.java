@@ -277,7 +277,6 @@ public class GUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadCollection();
                 System.out.println("Total sneakers in collection: " + collection.collectionSize());
                 System.out.println("Total Retail Value: $" + collection.totalRetailValue());
                 System.out.println("Total Resell Value: $" + collection.totalResellValue());
