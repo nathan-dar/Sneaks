@@ -14,6 +14,7 @@ public class Collection implements Writable {
     private List<Sneaker> collection;
     private String name;
 
+    // EFFECTS: constructs an empty sneaker collection with given name
     public Collection(String name) {
         this.name = name;
         collection = new ArrayList<>();
@@ -54,6 +55,7 @@ public class Collection implements Writable {
         return collection.size();
     }
 
+    // EFFECTS: returns collection (list of Sneakers)
     public List<Sneaker> getCollection() {
         return collection;
     }

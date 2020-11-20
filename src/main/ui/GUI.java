@@ -49,6 +49,7 @@ public class GUI {
     private JsonReader jsonReader;
     private Collection collection;
 
+    // EFFECTS: constructs and run the GUI
     public GUI() {
         runSneaksGUI();
     }
