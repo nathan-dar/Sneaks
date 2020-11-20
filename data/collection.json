@@ -1,0 +1,32 @@
+{
+    "sneakers": [
+        {
+            "condition": 9.5,
+            "size": 10,
+            "retailValue": 230,
+            "resellValue": 750,
+            "colourway": "BRED",
+            "model": "1",
+            "brand": "JORDAN"
+        },
+        {
+            "condition": 6.5,
+            "size": 7.5,
+            "retailValue": 90,
+            "resellValue": 10,
+            "colourway": "BLUE",
+            "model": "BREEZE",
+            "brand": "SKECHERS"
+        },
+        {
+            "condition": 10,
+            "size": 12.5,
+            "retailValue": 250,
+            "resellValue": 2000,
+            "colourway": "PIRATE BLACK",
+            "model": "YEEZY 350",
+            "brand": "ADIDAS"
+        }
+    ],
+    "name": "User's Collection"
+}

@@ -1,0 +1,23 @@
+{
+    "sneakers": [
+        {
+            "condition": 10,
+            "size": 10,
+            "retailValue": 100,
+            "resellValue": 100,
+            "colourway": "WHITE",
+            "model": "AIRFORCE",
+            "brand": "NIKE"
+        },
+        {
+            "condition": 9,
+            "size": 9,
+            "retailValue": 300,
+            "resellValue": 1000,
+            "colourway": "TURTLE DOVE",
+            "model": "YEEZY",
+            "brand": "ADIDAS"
+        }
+    ],
+    "name": "General Collection"
+}
