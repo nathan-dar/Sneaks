@@ -26,8 +26,8 @@ public class GUI {
     private static final String[] COLUMNS =
             {"Brand", "Model", "ColourWay", "Size", "Condition", "Retail Value", "Resell Value"};
     private static final String[] BRAND_OPTIONS =
-            {"---", "ADIDAS", "ASICS", "CONVERSE", "DESIGNER", "FILA", "JORDAN", "NEW BALANCE", "NIKE", "REEBOK",
-                    "SKECHERS", "UNDER ARMOUR", "VANS"};
+            {"---", "ADIDAS", "ASICS", "CONVERSE", "DESIGNER", "FILA", "JORDAN", "NEW BALANCE", "NIKE", "OTHER",
+                    "REEBOK", "SKECHERS", "UNDER ARMOUR", "VANS"};
     private static final String[] SIZE_OPTIONS =
             {"---", "5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12",
                     "12.5", "13"};
@@ -293,7 +293,7 @@ public class GUI {
     // MODIFIES: this
     // EFFECTS: gets text from fields and add it to the collection
     private void addSneakerFromFields() {
-        Icon brandIcon = new ImageIcon("./data/brandPhotos/" + brandChoice.getSelectedItem() + ".jpg");
+        Icon brandIcon = new ImageIcon("./data/brandIcons/" + brandChoice.getSelectedItem() + ".jpg");
 
         Object[] row = new Object[7];
         row[0] = brandIcon;
@@ -339,7 +339,7 @@ public class GUI {
             tableModel.setRowCount(0);
             for (int i = 0; i < collection.collectionSize(); i++) {
                 Sneaker s = collection.getSneaker(i);
-                Icon brandIcon = new ImageIcon("./data/brandPhotos/"
+                Icon brandIcon = new ImageIcon("./data/brandIcons/"
                         + s.getBrand() + ".jpg");
                 Object[] row = new Object[7];
                 row[0] = brandIcon;
