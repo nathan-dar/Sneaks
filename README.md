@@ -29,3 +29,15 @@ exception.  You must have one test for the case where the exception is expected 
 - Classes Involved: Collection
 - Methods Involved: removeSneaker, totalRetailValue, totalResellValue
 - These methods throw an EmptyCollectionException if the collection is empty.
+
+**Phase 4: Task 3**
+
+Ultimately, I am pretty satisfied with the project I made, overall the classes in the model package including
+Collection and Sneaker were quite straight-forward to design and implement, as a result, I would not refactor those
+particular classes. However, I think with more time to work on the project I could improve the GUI class in
+the ui package. These are the changes I would make:
+- The implementation of the buttons (add, remove, save, load, etc.) could have used more helper methods to reduce duplication
+and as well as improve readability
+- There were a lot of parameters used for button positions, I think I could have used a better approach to doing this rather
+than meticulously enter in numbers and run the gui to see if it looked right. I would use some sort of static final variable
+to fix this, improving single-point control.
