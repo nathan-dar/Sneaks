@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.EmptyCollectionException;
 import model.Collection;
 import model.Sneaker;
 import persistence.JsonReader;
@@ -217,7 +218,11 @@ public class GUI {
                     int i = table.getSelectedRow();
                     Sneaker s = collection.getSneaker(i);
                     tableModel.removeRow(i);
-                    collection.removeSneaker(i);
+                    try {
+                        collection.removeSneaker(i);
+                    } catch (EmptyCollectionException exception) {
+                        emptyCollectionPopup();
+                    }
                     JOptionPane.showMessageDialog(frame,
                             s.getBrand() + " " + s.getModel() + " " + s.getColourway() + " has been removed.",
                             "Sneaks - Sneaker Removed",
@@ -278,18 +283,28 @@ public class GUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Total sneakers in collection: " + collection.collectionSize());
-                System.out.println("Total Retail Value: $" + collection.totalRetailValue());
-                System.out.println("Total Resell Value: $" + collection.totalResellValue());
-                JOptionPane.showMessageDialog(frame,
-                        "Total sneakers in collection: " + collection.collectionSize()
-                                + "\nTotal Retail Value: $" + collection.totalRetailValue()
-                                + "\nTotal Resell Value: $" + collection.totalResellValue(),
-                        "Sneaks - Collection Statistics",
-                        JOptionPane.PLAIN_MESSAGE);
+                try {
+                    JOptionPane.showMessageDialog(frame,
+                            "Total sneakers in collection: " + collection.collectionSize()
+                                    + "\nTotal Retail Value: $" + collection.totalRetailValue()
+                                    + "\nTotal Resell Value: $" + collection.totalResellValue(),
+                            "Sneaks - Collection Statistics",
+                            JOptionPane.PLAIN_MESSAGE);
+                } catch (EmptyCollectionException exception) {
+                    emptyCollectionPopup();
+                }
             }
         });
     }
+
+    // EFFECTS: displays a message informing user that the collection is empty
+    private void emptyCollectionPopup() {
+        JOptionPane.showMessageDialog(frame,
+                "The collection is empty.",
+                "Sneaks - Empty Collection",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
 
     // MODIFIES: this
     // EFFECTS: gets text from fields and add it to the collection

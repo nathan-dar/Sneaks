@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.EmptyCollectionException;
 import model.Collection;
 import model.Sneaker;
 import persistence.JsonReader;
@@ -152,15 +153,23 @@ public class SneaksApp {
         System.out.println("Enter the number of the sneaker you want to remove:");
         int remove = scan.nextInt();
         Sneaker sn = collection.getSneaker(remove - 1);
-        collection.removeSneaker(remove - 1);
+        try {
+            collection.removeSneaker(remove - 1);
+        } catch (EmptyCollectionException exception) {
+            System.out.println("Collection is empty.");
+        }
         System.out.println(sn.getBrand() + " " + sn.getModel() + " " + sn.getColourway() + " has been removed.");
     }
 
     // EFFECTS: displays the collections statistics
     public void doCollectionStats() {
-        System.out.println("Total sneakers in collection: " + collection.collectionSize());
-        System.out.println("Total Retail Value: $" + collection.totalRetailValue());
-        System.out.println("Total Resell Value: $" + collection.totalResellValue());
+        try {
+            System.out.println("Total sneakers in collection: " + collection.collectionSize());
+            System.out.println("Total Retail Value: $" + collection.totalRetailValue());
+            System.out.println("Total Resell Value: $" + collection.totalResellValue());
+        } catch (EmptyCollectionException exception) {
+            System.out.println("Collection is empty.");
+        }
     }
 
     // EFFECTS: displays the entire sneaker collection

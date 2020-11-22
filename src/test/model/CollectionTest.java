@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.EmptyCollectionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,44 +22,64 @@ public class CollectionTest {
 
     @Test
     public void totalRetailValueTestEmptyCollection() {
-        assertEquals(0, c.collectionSize());
-        assertEquals(0, c.totalRetailValue());
+        try {
+            assertEquals(0, c.totalRetailValue());
+            fail("Supposed to throw EmptyCollectionException");
+        } catch (EmptyCollectionException e) {
+            //pass
+        }
     }
 
     @Test
     public void totalRetailValueTestTwoInCollection() {
-        c.addSneaker(s1);
-        assertEquals(1, c.collectionSize());
-        assertEquals(3, c.totalRetailValue());
-        c.addSneaker(s2);
-        assertEquals(2, c.collectionSize());
-        assertEquals(10, c.totalRetailValue());
+        try {
+            c.addSneaker(s1);
+            assertEquals(1, c.collectionSize());
+            assertEquals(3, c.totalRetailValue());
+            c.addSneaker(s2);
+            assertEquals(2, c.collectionSize());
+            assertEquals(10, c.totalRetailValue());
+        } catch (EmptyCollectionException e) {
+            fail("Not supposed to throw EmptyCollectionException");
+        }
     }
 
     @Test
     public void totalResellValueTestEmptyCollection() {
-        assertEquals(0, c.collectionSize());
-        assertEquals(0, c.totalResellValue());
+        try {
+            assertEquals(0, c.totalRetailValue());
+            fail("Supposed to throw EmptyCollectionException");
+        } catch (EmptyCollectionException e) {
+            //pass
+        }
     }
 
     @Test
     public void totalResellValueTestTwoInCollection() {
+        try {
         c.addSneaker(s1);
         assertEquals(1, c.collectionSize());
         assertEquals(4, c.totalResellValue());
         c.addSneaker(s2);
         assertEquals(2, c.collectionSize());
         assertEquals(12, c.totalResellValue());
+        } catch (EmptyCollectionException e) {
+            fail("Not supposed to throw EmptyCollectionException");
+        }
     }
 
     @Test
     public void addSneakerThenRemoveSneakerTest() {
+        try {
         c.addSneaker(s1);
         assertEquals(1, c.collectionSize());
         assertEquals(s1, c.getSneaker(0));
         c.removeSneaker(0);
         assertEquals(0, c.collectionSize());
         assertEquals(0, c.getCollection().size());
+        } catch (EmptyCollectionException e) {
+            fail("Not supposed to throw EmptyCollectionException");
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.EmptyCollectionException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -20,6 +21,21 @@ public class Collection implements Writable {
         collection = new ArrayList<>();
     }
 
+    // EFFECTS: returns collection (list of Sneakers)
+    public List<Sneaker> getCollection() {
+        return collection;
+    }
+
+    // EFFECTS: returns Sneaker at given index i,
+    public Sneaker getSneaker(int i) {
+        return collection.get(i);
+    }
+
+    // EFFECTS: returns the collection's name
+    public String getName() {
+        return name;
+    }
+
     // MODIFIES: this
     // EFFECTS: adds a sneaker to the collection
     public void addSneaker(Sneaker s) {
@@ -27,13 +43,21 @@ public class Collection implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes a sneaker from collection with given index
-    public void removeSneaker(int i) {
+    // EFFECTS: removes a sneaker from collection with given index,
+    // throws EmptyCollectionException if collection is empty
+    public void removeSneaker(int i) throws EmptyCollectionException {
+        if (collectionSize() == 0) {
+            throw new EmptyCollectionException();
+        }
         collection.remove(i);
     }
 
-    // EFFECTS: sums the total retail value of the collection
-    public double totalRetailValue() {
+    // EFFECTS: sums the total retail value of the collection,
+    // throws EmptyCollectionException if collection is empty
+    public double totalRetailValue() throws EmptyCollectionException {
+        if (collectionSize() == 0) {
+            throw new EmptyCollectionException();
+        }
         double total = 0;
         for (Sneaker s : collection) {
             total += s.getRetailValue();
@@ -41,8 +65,12 @@ public class Collection implements Writable {
         return total;
     }
 
-    // EFFECTS: sums the total resell value of the collection
-    public double totalResellValue() {
+    // EFFECTS: sums the total resell value of the collection,
+    // throws EmptyCollectionException if collection is empty
+    public double totalResellValue() throws EmptyCollectionException {
+        if (collectionSize() == 0) {
+            throw new EmptyCollectionException();
+        }
         double total = 0;
         for (Sneaker s : collection) {
             total += s.getResellValue();
@@ -53,21 +81,6 @@ public class Collection implements Writable {
     // EFFECTS: returns collection size
     public int collectionSize() {
         return collection.size();
-    }
-
-    // EFFECTS: returns collection (list of Sneakers)
-    public List<Sneaker> getCollection() {
-        return collection;
-    }
-
-    // REQUIRES: collection.size() > 0
-    public Sneaker getSneaker(int i) {
-        return collection.get(i);
-    }
-
-    // EFFECTS: returns the collection's name
-    public String getName() {
-        return name;
     }
 
     @Override
