@@ -22,3 +22,10 @@ My main tasks for **Phase  1** of the project:
 My main tasks for **Phase  2** of the project:
 - As a user, I want to be able to save my collection to file
 - As a user, I want to be able to load my collection from file
+
+**Phase 4: Task 2**
+- Test and design a class in your model package that is robust.  You must have at least one method that throws a checked 
+exception.  You must have one test for the case where the exception is expected and another where the exception is not expected.
+- Classes Involved: Collection
+- Methods Involved: removeSneaker, totalRetailValue, totalResellValue
+- These methods throw an EmptyCollectionException if the collection is empty.
