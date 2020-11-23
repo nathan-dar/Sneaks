@@ -47,7 +47,7 @@ public class CollectionTest {
     @Test
     public void totalResellValueTestEmptyCollection() {
         try {
-            assertEquals(0, c.totalRetailValue());
+            assertEquals(0, c.totalResellValue());
             fail("Supposed to throw EmptyCollectionException");
         } catch (EmptyCollectionException e) {
             //pass
@@ -79,6 +79,15 @@ public class CollectionTest {
         assertEquals(0, c.getCollection().size());
         } catch (EmptyCollectionException e) {
             fail("Not supposed to throw EmptyCollectionException");
+        }
+    }
+
+    @Test
+    public void removeSneakerWithEmptyCollection() {
+        try {
+            c.removeSneaker(1);
+        } catch (EmptyCollectionException e) {
+            //pass
         }
     }
 
